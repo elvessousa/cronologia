@@ -23,12 +23,6 @@ function ess_timeline_metaboxes( $meta_boxes = array() ) {
 		'show_names' => true,
 		'fields'     => array(
 			array(
-				'name' => __('Event', 'ess-customposts').'<i class="icon-clock"></i>',
-				'desc' => __('Create an event slide for a timeline', 'ess-customposts'),
-				'id'   => $prefix_timeline . 'title',
-				'type' => 'title'
-			),
-			array(
 				'name'    => __('Date', 'ess-customposts'),
 				'id'      => $prefix_timeline . 'date',
 				'type'    => 'text_small',
