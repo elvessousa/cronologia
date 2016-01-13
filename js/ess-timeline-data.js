@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------
 
-	Script name: Timeline data
-	Sends data to the active timeline.
+Script name: Timeline data
+Sends data to the active timeline.
 
 ------------------------------------------------------------------------*/
 
@@ -15,19 +15,19 @@ var langcode = language.toLowerCase();
 var timelang = ess_timeline.lang;
 
 if (timelang === '') {
-    timelang = langcode;
+  timelang = langcode;
 }
 
 // Timeline configuration
 var timeline_config = {
-    width:          ess_timeline.twidth,
-    height:         ess_timeline.theight,
-    source:         jsonsrc,
-    hash_bookmark:  ess_timeline.hash,
-    start_at_end:   ess_timeline.reverse,
-    embed_id:       ess_timeline.id,
-    lang:           timelang,
-    maptype:        ess_timeline.maptype,
-    css:            ess_timeline.css,
-    js:             ess_timeline.js,
+  width:          ess_timeline.twidth,
+  height:         ess_timeline.theight,
+  source:         jsonsrc,
+  hash_bookmark:  ess_timeline.hash,
+  start_at_end:   ess_timeline.reverse,
+  embed_id:       ess_timeline.id,
+  lang:           timelang,
+  maptype:        ess_timeline.maptype,
+  css:            ess_timeline.css,
+  js:             ess_timeline.js,
 };
