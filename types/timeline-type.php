@@ -17,24 +17,24 @@ if ( !function_exists('ess_create_timeline') ) {
   add_action('init', 'ess_create_timeline');
   function ess_create_timeline() {
     $timeline_labels = array(
-      'name'                => __('Timeline Events', 'ess-customposts'),
-      'singular_name'       => __('Timeline Event', 'ess-customposts'),
-      'menu_name'           => __('Timeline Events', 'ess-customposts'),
-      'add_new'             => __('Add Timeline Event', 'ess-customposts'),
-      'add_new_item'        => __('Add New Timeline Event', 'ess-customposts'),
-      'edit'                => __('Edit', 'ess-customposts'),
-      'edit_item'           => __('Edit Timeline Event', 'ess-customposts'),
-      'new_item'            => __('New Timeline Event', 'ess-customposts'),
-      'view'                => __('View Timelines', 'ess-customposts'),
-      'view_item'           => __('View Timelines', 'ess-customposts'),
-      'search_items'        => __('Search Timelines', 'ess-customposts'),
-      'not_found'           => __('No Timelines Found', 'ess-customposts'),
-      'not_found_in_trash'  => __('No Timelines Found in Trash', 'ess-customposts'),
-      'parent'              => __('Parent Timelines', 'ess-customposts'),
+      'name'                => __('Timeline Events', 'ess-timeline'),
+      'singular_name'       => __('Timeline Event', 'ess-timeline'),
+      'menu_name'           => __('Timeline Events', 'ess-timeline'),
+      'add_new'             => __('Add Timeline Event', 'ess-timeline'),
+      'add_new_item'        => __('Add New Timeline Event', 'ess-timeline'),
+      'edit'                => __('Edit', 'ess-timeline'),
+      'edit_item'           => __('Edit Timeline Event', 'ess-timeline'),
+      'new_item'            => __('New Timeline Event', 'ess-timeline'),
+      'view'                => __('View Timelines', 'ess-timeline'),
+      'view_item'           => __('View Timelines', 'ess-timeline'),
+      'search_items'        => __('Search Timelines', 'ess-timeline'),
+      'not_found'           => __('No Timelines Found', 'ess-timeline'),
+      'not_found_in_trash'  => __('No Timelines Found in Trash', 'ess-timeline'),
+      'parent'              => __('Parent Timelines', 'ess-timeline'),
     );
     $timeline_args = array(
       'labels'              => $timeline_labels,
-      'singular_label'      => __('Timeline', 'ess-customposts'),
+      'singular_label'      => __('Timeline', 'ess-timeline'),
       'menu_icon'           => 'dashicons-backup',
       'public'              => true,
       'show_ui'             => true,
@@ -56,10 +56,10 @@ if ( !function_exists('ess_create_timeline') ) {
   function ess_timeline_taxonomies() {
     register_taxonomy('chronologies', array('timeline'),
     array(
-      'hierarchical' => true,
-      'label' => __('Chronologies', 'ess-customposts'),
-      'singular_label' => __('Chronology', 'ess-customposts'),
-      'rewrite' => true)
+      'hierarchical'   => true,
+      'label'          => __('Chronologies', 'ess-timeline'),
+      'singular_label' => __('Chronology', 'ess-timeline'),
+      'rewrite'        => true)
     );
   }
 
@@ -70,12 +70,12 @@ if ( !function_exists('ess_create_timeline') ) {
   add_action('manage_timeline_posts_custom_column', 'ess_timeline_columns_display');
   function ess_timeline_edit_columns($catalog_columns){
     $catalog_columns = array(
-      'cb'            => '<input type="checkbox" />',
-      'icon'          => '',
-      'title'         => __('Title', 'ess-customposts'),
-      'author'        => __('Author', 'ess-customposts'),
-      'chronologies'  => __('Chronologies', 'ess-customposts'),
-      'date'          => __('Date', 'ess-customposts')
+      'cb'           => '<input type="checkbox" />',
+      'icon'         => '',
+      'title'        => __('Title', 'ess-timeline'),
+      'author'       => __('Author', 'ess-timeline'),
+      'chronologies' => __('Chronologies', 'ess-timeline'),
+      'date'         => __('Date', 'ess-timeline')
     );
     return $catalog_columns;
   }
@@ -112,7 +112,7 @@ if ( !function_exists('ess_create_timeline') ) {
       $selected      = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
       $info_taxonomy = get_taxonomy($taxonomy);
       wp_dropdown_categories(array(
-        'show_option_all' => __("Chronologies", "ess-customposts"),
+        'show_option_all' => __("Chronologies", "ess-timeline"),
         'taxonomy'        => $taxonomy,
         'name'            => $taxonomy,
         'orderby'         => 'name',
@@ -135,7 +135,7 @@ if ( !function_exists('ess_create_timeline') ) {
     && isset($q_vars[$taxonomy])
     && is_numeric($q_vars[$taxonomy])
     && $q_vars[$taxonomy] != 0) {
-      $term = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
+      $term              = get_term_by('id', $q_vars[$taxonomy], $taxonomy);
       $q_vars[$taxonomy] = $term->slug;
     }
   }

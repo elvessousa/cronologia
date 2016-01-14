@@ -42,7 +42,36 @@ function ess_timeline_frontend_enqueues() {
   wp_register_script('ess-timeline-data', ESS_TIMELINE_URL . '/js/ess-timeline-data.js', array('jquery'), true);
 }
 
+// ----------------------------------------------------
+// Enqueues [backend]
+// ----------------------------------------------------
+add_action('admin_enqueue_scripts', 'ess_timeline_backend_enqueues');
+function ess_timeline_backend_enqueues() {
+  $screen   = get_current_screen();
+  $screenId = $screen->id;
 
+  $labels = array(
+    'imgDiagTitle' => __('Choose a media from Wordpress', 'ess-timeline'),
+    'imgDiagBtn' => __('Use this one', 'ess-timeline'),
+    'plugin_url' => ESS_TIMELINE_URL
+  );
+
+  if ($screenId == 'timeline') {
+    // Wordpress scripts
+    wp_enqueue_media();
+
+    // Angular
+    wp_enqueue_script('angularjs', ESS_TIMELINE_URL . '/bin/angular/angular.min.js', array(), null );
+
+    // Timeline metabox script
+    wp_register_script('ess-timeline-metabox', ESS_TIMELINE_URL . '/js/ess-timeline-metabox.js', array(), null  );
+    wp_localize_script('ess-timeline-metabox', 'ess_timeline', $labels);
+    wp_enqueue_script('ess-timeline-metabox');
+
+    wp_enqueue_style('ess-timeline-metabox-ui', ESS_TIMELINE_URL . '/css/ess-timeline-fields.css');
+
+  }
+}
 // ----------------------------------------------------
 // Timeline: [ess-timeline  src="src"]
 // ----------------------------------------------------

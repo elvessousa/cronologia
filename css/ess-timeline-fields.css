@@ -1,0 +1,85 @@
+.timeline-fields dt {
+  width: 150px;
+  font-weight: bold;
+  font-size: 14px;
+  float: left;
+  display: block;
+}
+
+.timeline-fields label {
+  padding: 1em;
+  display: inline-block;
+}
+.timeline-fields dd {
+  padding: .5em;
+  border-bottom: 1px solid #eee;
+  margin: 0
+}
+
+.timeline-fields .caption {
+  margin-left: 150px;
+  color: #999;
+  padding: .2em;
+  cursor: help;
+}
+
+.timeline-fields .caption .media-types {
+  display: none;
+}
+.timeline-fields .caption:hover .media-types {
+  background: rgba(0,0,0,0.8);
+  border-radius: 3px;
+  bottom: 0;
+  left: 50%;
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  color: #ddd;
+  display: block;
+  list-style-type:square;
+  margin: 0;
+  padding: 10px 30px;
+  position: absolute;
+  z-index: 1
+}
+
+.timeline-fields dt::before {
+  content: ' ';
+  border-bottom: 1px solid #eee;
+  clear: both;
+}
+.timeline-fields input,
+.timeline-fields input[type="text"],
+.timeline-fields input[type="number"],
+.timeline-fields textarea {
+  border: none;
+  padding: 10px;
+  width: 80%;
+  box-shadow: none;
+}
+
+.timeline-fields input:focus,
+.timeline-fields textarea:focus { outline: none; }
+
+.timeline-fields .media-button {
+  background: #eee;
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #ccc;
+  padding: 1em;
+  color: #000;
+}
+.timeline-fields .media-button:hover {
+  background: #ddd;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
+}
+.timeline-fields button:active {
+  background: #ccc;
+  border: 1px solid #ddd;
+  border-top: 3px solid #bbb;
+}
+
+.timeline-fields .dates,
+.timeline-fields .group { display: flex; }
+.timeline-fields .dates input { width: auto; }
+
+.timeline-fields .hidden { display: none; }
+.timeline-fields .ng-invalid-number { color: #c00; }
