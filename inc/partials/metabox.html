@@ -21,7 +21,7 @@
       </dt>
       <dd>
         <div class="dates">
-          <input type="number" ng-model="timeline.enddate.year" placeholder="YYYY">
+          <input type="number" number-to-string ng-model="timeline.enddate.year" placeholder="YYYY">
           <input type="number" ng-model="timeline.enddate.month" min="0" max="12" placeholder="MM">
           <input type="number" ng-model="timeline.enddate.day" min="0" max="31" placeholder="DD">
           <input type="number" ng-model="timeline.enddate.hour" ng-hide="!timeline.enddate.day" min="0" max="24" placeholder="HH">
@@ -39,7 +39,7 @@
     <dt><label for="timeline-media">Media</label></dt>
     <dd>
       <div class="group">
-        <input type="text" id="timeline-media" ng-model="timeline.media" placeholder="URL or HTML">
+        <input type="url" id="timeline-media" ng-model="timeline.media.thumbnail" placeholder="URL or HTML">
         <a class="media-button" ng-click="getIMG()">Insert</a>
       </div>
       <div class="caption">
@@ -66,15 +66,25 @@
       </div>
     </dd>
 
+    <dt><label for="timeline-bg">Background</label></dt>
+    <dd>
+      <div class="group">
+        <input type="url" id="timeline-bg" ng-model="timeline.background.url" placeholder="URL">
+        <a class="media-button" ng-click="getBack()">Insert</a>
+      </div>
+    </dd>
+    <dt><label for="timeline-bg">Background opacity</label></dt>
+    <dd>
+      <input type="number" id="timeline-bg" ng-model="timeline.background.opacity" placeholder="100">
+    </dd>
+
     <dt><label for="timeline-credit">Credit</label></dt>
-    <dd><input type="text" id="timeline-credit" ng-model="timeline.credit" placeholder="Acme Inc."></dd>
+    <dd><input type="text" id="timeline-credit" ng-model="timeline.media.credit" placeholder="Acme Inc."></dd>
 
     <dt><label for="timeline-caption">Caption</label></dt>
-    <dd><input type="text" id="timeline-caption" ng-model="timeline.caption" placeholder="Media from AcmePhoto"></dd>
+    <dd><input type="text" id="timeline-caption" ng-model="timeline.media.caption" placeholder="Media from AcmePhoto"></dd>
   </dl>
-  <form action="" method="post">
-    <input type="text" name="_timeline_content" value="{{ timeline | json: 0 }}" class="hidden">
-  </form>
+  <input type="text" name="_timeline_content"  ng-model="timelinecontent" value="{{timeline | json: 0}}" class="hidden">
   <div class="debug">
     <strong>JSON</strong>
     <pre>{{ timeline | json: 4 }} </pre>

@@ -48,6 +48,7 @@
 }
 .timeline-fields input,
 .timeline-fields input[type="text"],
+.timeline-fields input[type="url"],
 .timeline-fields input[type="number"],
 .timeline-fields textarea {
   border: none;

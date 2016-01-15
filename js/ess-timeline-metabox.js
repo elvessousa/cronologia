@@ -3,8 +3,27 @@
   var timeMeta;
   timeMeta = angular.module('ess-timeline-metabox', []);
 
-  timeMeta.controller('TimelineCtrl', function ($scope) {
+  timeMeta.controller('TimelineCtrl', function ($scope, $window) {
+    $scope.timelinecontent = $window.timelinecontent;
     $scope.timeline = {};
+
+    // Watch for postlist
+    $scope.$watch('timelinecontent', function () {
+      try {
+        $scope.timeline = JSON.parse($scope.timelinecontent);
+      } catch (exp) {
+        console.log('Posts: ' + $scope.timelinecontent.length + ' items.');
+      }
+    });
+
+    // Watch for posts
+    $scope.$watch('timeline', function () {
+      try {
+        $scope.timelinecontent = JSON.parse($scope.timeline);
+      } catch (exp) {
+        console.log('Posts: ' + $scope.timeline.length + ' items.');
+      }
+    });
 
     // Open media dialog to change image
     $scope.getIMG = function (index) {
@@ -24,6 +43,25 @@
         captionel.val(attachment.caption);
         element.trigger('change');
         captionel.trigger('change');
+      })
+      .open();
+    };
+
+    // Open media dialog to change image
+    $scope.getBack = function (index) {
+      var element, image, button, uploader;
+      element   = angular.element('#timeline-bg');
+      uploader  = wp.media({
+        title: ess_timeline.imgDiagTitle,
+        button: {
+          text: ess_timeline.imgDiagBtn
+        },
+        multiple: false
+      })
+      .on('select', function() {
+        var attachment = uploader.state().get('selection').first().toJSON();
+        element.val(attachment.url);
+        element.trigger('change');
       })
       .open();
     };

@@ -102,13 +102,32 @@ function ess_timeline_metaboxes( $meta_boxes = array() ) {
 // ----------------------------------------------------
 function ess_timeline_meta_box( $post ) {
   wp_nonce_field( 'ess_timeline_meta_box', 'ess_timeline_nonce' );
-  $timeline = get_post_meta( $post->ID, '_timeline', true );
-  // echo '<script>';
-  // echo "window.results = JSON.stringify($timeline);";
-  // echo '</script>';
+  $timeline = get_post_meta( get_the_ID(), '_timeline_content', true );
+  echo '<script>';
+  echo "window.timelinecontent = JSON.stringify($timeline);";
+  echo '</script>';
   echo '<div ng-app="ess-timeline-metabox"><timeline-metabox></timeline-metabox></div>';
   echo '</div>';
 }
+
+// ----------------------------------------------------
+// Save metabox
+// ----------------------------------------------------
+function ess_timeline_metabox_save($post_id) {
+  // Make sure that it is set
+  if (!isset($_POST['_timeline_content'])) {
+    return;
+  }
+
+  if('timeline' == get_post_type()) {
+    // Sanitize user input and update the meta
+    $features  = sanitize_text_field($_POST['_timeline_content']);
+    $resultado = update_post_meta($post_id, '_timeline_content', $features);
+    return $resultado;
+  }
+}
+add_action('save_post', 'ess_timeline_metabox_save', 10, 3);
+
 
 // ----------------------------------------------------
 // Initialize the metabox class.
