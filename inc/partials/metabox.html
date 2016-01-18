@@ -3,6 +3,18 @@
     A year is needed in order to make the timeline work gracefully.
   </p>
   <dl class="timeline-fields">
+    <!-- Group -->
+    <dt><label for="timeline-group">Group</label></dt>
+    <dd>
+      <div class="group">
+        <input type="text" id="timeline-group" ng-model="timeline.group" placeholder="Group name">
+      </div>
+      <div class="caption">
+        <small>This will separate this event into a line of its own.</small>
+      </div>
+    </dd>
+
+    <!-- Date block -->
     <dt><label for="timeline-date">Date</label></dt>
     <dd>
       <div class="dates">
@@ -15,6 +27,7 @@
       </div>
     </dd>
 
+    <!-- End date block -->
     <div class="enddate-fields" ng-hide="!timeline.date.year">
       <dt>
         <label for="timeline-enddate">End Date</label>
@@ -31,58 +44,55 @@
       </dd>
     </div>
 
+    <!-- Text -->
     <dt><label for="timeline-text">Text</label></dt>
     <dd>
       <textarea id="timeline-text" rows="8" cols="40" ng-model="timeline.text" placeholder="Text or HTML content"></textarea>
     </dd>
 
+    <!-- Media -->
     <dt><label for="timeline-media">Media</label></dt>
     <dd>
       <div class="group">
-        <input type="url" id="timeline-media" ng-model="timeline.media.thumbnail" placeholder="URL or HTML">
-        <a class="media-button" ng-click="getIMG()">Insert</a>
+        <input type="text" id="timeline-media" ng-model="timeline.media.url" placeholder="URL or HTML">
+        <a class="media-button" ng-click="getMedia()">Insert</a>
       </div>
       <div class="caption">
-        <small>Use the media types avaiable for TimelineJS or a media from Wordpress.</small>
-        <ul class="media-types">
-          <li>Blockquotes</li>
-          <li>Daily Motion</li>
-          <li>Document Cloud</li>
-          <li>Flickr</li>
-          <li>Google Docs</li>
-          <li>Google Maps</li>
-          <li>iFrames</li>
-          <li>Images</li>
-          <li>Instagram</li>
-          <li>Soundcloud</li>
-          <li>Spotify</li>
-          <li>Storify</li>
-          <li>Twitter</li>
-          <li>Vimeo</li>
-          <li>Vine</li>
-          <li>Website Links</li>
-          <li>YouTube</li>
-        </ul>
+        <small>Use the media types available for TimelineJS or a media from Wordpress.</small>
       </div>
     </dd>
 
+    <!-- Credit -->
+    <dt><label for="timeline-credit">Credit</label></dt>
+    <dd><input type="text" id="timeline-credit" ng-model="timeline.media.credit" placeholder="Acme Inc."></dd>
+
+    <!-- Caption -->
+    <dt><label for="timeline-caption">Caption</label></dt>
+    <dd><input type="text" id="timeline-caption" ng-model="timeline.media.caption" placeholder="Media from AcmePhoto"></dd>
+
+    <!-- Thumbnail -->
+    <dt><label for="timeline-thumbnail">Thumbnail</label></dt>
+    <dd>
+      <div class="group">
+        <input type="text" id="timeline-thumbnail" ng-model="timeline.media.thumbnail" placeholder="URL to image">
+        <a class="media-button" ng-click="getImage('#timeline-thumbnail')">Insert</a>
+      </div>
+    </dd>
+
+    <!-- Background -->
     <dt><label for="timeline-bg">Background</label></dt>
     <dd>
       <div class="group">
         <input type="url" id="timeline-bg" ng-model="timeline.background.url" placeholder="URL">
-        <a class="media-button" ng-click="getBack()">Insert</a>
+        <a class="media-button" ng-click="getImage('#timeline-bg')">Insert</a>
       </div>
     </dd>
+
+    <!-- Background opacity -->
     <dt><label for="timeline-bg">Background opacity</label></dt>
     <dd>
       <input type="number" id="timeline-bg" ng-model="timeline.background.opacity" placeholder="100">
     </dd>
-
-    <dt><label for="timeline-credit">Credit</label></dt>
-    <dd><input type="text" id="timeline-credit" ng-model="timeline.media.credit" placeholder="Acme Inc."></dd>
-
-    <dt><label for="timeline-caption">Caption</label></dt>
-    <dd><input type="text" id="timeline-caption" ng-model="timeline.media.caption" placeholder="Media from AcmePhoto"></dd>
   </dl>
   <input type="text" name="_timeline_content"  ng-model="timelinecontent" value="{{timeline | json: 0}}" class="hidden">
   <div class="debug">

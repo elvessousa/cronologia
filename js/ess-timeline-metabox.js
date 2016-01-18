@@ -1,9 +1,18 @@
+/*-----------------------------------------------------------------------
+*
+*  Script name: Timeline metabox
+*  This script takes care of the data input in the backend for each slide.
+*
+------------------------------------------------------------------------*/
 (function () {
   'use strict';
   var timeMeta;
   timeMeta = angular.module('ess-timeline-metabox', []);
 
-  timeMeta.controller('TimelineCtrl', function ($scope, $window) {
+  // ----------------------------------------------------
+  // Timeline metabox controller
+  // ----------------------------------------------------
+  timeMeta.controller('TimelineCtrl', function ($scope, $window, $sce) {
     $scope.timelinecontent = $window.timelinecontent;
     $scope.timeline = {};
 
@@ -26,7 +35,7 @@
     });
 
     // Open media dialog to change image
-    $scope.getIMG = function (index) {
+    $scope.getMedia = function (index) {
       var element, captionel, image, button, uploader;
       element   = angular.element('#timeline-media');
       captionel = angular.element('#timeline-caption');
@@ -48,9 +57,9 @@
     };
 
     // Open media dialog to change image
-    $scope.getBack = function (index) {
+    $scope.getImage = function (index) {
       var element, image, button, uploader;
-      element   = angular.element('#timeline-bg');
+      element   = angular.element(index);
       uploader  = wp.media({
         title: ess_timeline.imgDiagTitle,
         button: {
@@ -66,12 +75,12 @@
       .open();
     };
   });
+
   timeMeta.directive('timelineMetabox', function(){
     return {
       restrict:'E',
       replace: true,
       templateUrl: ess_timeline.plugin_url + '/inc/partials/metabox.html'
     };
-  })
-
+  });
 })();

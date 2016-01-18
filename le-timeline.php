@@ -62,6 +62,7 @@ function ess_timeline_backend_enqueues() {
 
     // Angular
     wp_enqueue_script('angularjs', ESS_TIMELINE_URL . '/bin/angular/angular.min.js', array(), null );
+    wp_enqueue_script('angularjs-sanitize', ESS_TIMELINE_URL . '/bin/angular/angular-sanitize.min.js', array(), null );
 
     // Timeline metabox script
     wp_register_script('ess-timeline-metabox', ESS_TIMELINE_URL . '/js/ess-timeline-metabox.js', array(), null  );
@@ -190,39 +191,42 @@ function ess_timeline_3($atts, $content = null) {
   $slides         = array();
 
   // Slide content
-  while ( $timeline_query->have_posts() ) {
-    $timeline_query->the_post();
-    $slide = json_decode(get_post_meta( $post->ID, '_timeline_content', true ));
-
+  while ($timeline_query->have_posts()) : $timeline_query->the_post();
     // Slide data
+    $slide   = json_decode(get_post_meta($post->ID, '_timeline_content', true));
     $content = array(
-      'start_date' => array($slide->date),
-      'end_date'   => array($slide->enddate),
-      'media'      => array($slide->media),
-      'background' => array($slide->background),
+      'start_date' => $slide->date,
+      'media'      => $slide->media,
+      'background' => $slide->background,
       'text'       => array(
         'headline' => get_the_title(),
         'text'     => $slide->text,
       ),
     );
 
+    // Add end date only if available
+    if (!is_null($slide->enddate->year)) $content['end_date'] = $slide->enddate;
+    if (isset($slide->group)) $content['group'] = $slide->group;
+    if (!is_null($slide->text)) {
+      $content['text'] = array(
+        'headline' => get_the_title(),
+        'text'     => $slide->text
+      );
+    }
     $slides[] = $content;
-  }
-
-  echo "<pre>";
-  echo(json_encode($slides, JSON_PRETTY_PRINT));
-  echo "</pre><hr>";
+  endwhile;
 
   // Timeline with slides
   $time = array(
     'title'  => array(
       'media' => array(
         'url'       => $thumb,
-        'thumbnail' => $bg,
+        'thumbnail' => $thumb,
         'caption'   => $headline,
         'credit'    => $text,
       ),
-      'text' => array(
+      'background' => array('url' => $bg),
+      'text'       => array(
         'headline' => $headline,
         'text'     => $text,
       ),
